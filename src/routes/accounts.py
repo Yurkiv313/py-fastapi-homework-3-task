@@ -70,10 +70,10 @@ async def register(
         db.add(activation_token)
         await db.commit()
         return db_user
-    except Exception as e:
+    except Exception:
         await db.rollback()
         raise HTTPException(
-            status_code=500, detail=f"An error occurred during user creation."
+            status_code=500, detail="An error occurred during user creation."
         )
 
 
