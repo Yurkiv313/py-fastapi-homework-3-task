@@ -69,7 +69,10 @@ async def register(
         activation_token = ActivationTokenModel(user_id=db_user.id)
         db.add(activation_token)
         await db.commit()
-        return db_user
+        return UserRegistrationResponseSchema(
+            id=db_user.id,
+            email=db_user.email
+        )
     except Exception:
         await db.rollback()
         raise HTTPException(
